@@ -6,7 +6,7 @@ We have a detectron image: `docker build -t detectron:c2-cuda9-cudnn7 .`
 ## Build new images
 
 Dockerfile:
-````docker
+```docker
 FROM detectron:c2-cuda9-cudnn7
 
 RUN mkdir /smartcrop
