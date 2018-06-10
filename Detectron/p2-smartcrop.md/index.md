@@ -2,7 +2,6 @@
 
 We have a detectron image: `docker build -t detectron:c2-cuda9-cudnn7 .`
 
-This is test
 ## Build new images
 
 Dockerfile:
