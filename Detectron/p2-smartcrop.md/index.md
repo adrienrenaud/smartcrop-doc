@@ -2,7 +2,7 @@
 
 We have a detectron image: `docker build -t detectron:c2-cuda9-cudnn7 .`
 
-
+This is test
 ## Build new images
 
 Dockerfile:
@@ -17,6 +17,12 @@ RUN pip install -e .
 RUN pip install jupyterlab==0.32.1
 RUN pip install moviepy==0.2.3.5
 ```
+
+
+
+
+
+
 
 setup.py:
 ```python
