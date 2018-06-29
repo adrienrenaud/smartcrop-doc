@@ -6,11 +6,14 @@ aws deep learning ami
 c5.4xlarge
 install docker
 
-source activate tensorflow_p36
-sudo apt-get install golang libjpeg-turbo8-dev make
-
+```python
 keys = ['up', 'left up', 'right up', 'up x']
+```
 
+
+Dockerfile:
+
+```bash
 FROM ubuntu:16.04
 
 RUN apt-get update \
@@ -73,3 +76,10 @@ WORKDIR /usr/local/universe-starter-agent
 
 # Just in case any python cache files were carried over from the source directory, remove them
 RUN py3clean .
+```
+
+```bash
+docker build -t universe .
+docker run --privileged -it -e DOCKER_NET_HOST=172.17.0.1 -p 12345:12345 -v /var/run/docker.sock:/var/run/docker.sock universe bash
+python train.py --num-workers 16 --env-id flashgames.FormulaRacer2012-v0 --log-dir /tmp/formularacer6
+```
