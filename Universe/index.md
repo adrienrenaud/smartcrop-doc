@@ -9,7 +9,8 @@ install docker
 ```python
 keys = ['up', 'left up', 'right up', 'up x']
 ```
-
+44206
+5900
 
 Dockerfile:
 
@@ -61,18 +62,10 @@ RUN pip install pytest
 # Force the container to use the go vnc driver
 ENV UNIVERSE_VNCDRIVER='go'
 
-WORKDIR /usr/local/
-
+WORKDIR /app
 RUN git clone https://github.com/openai/universe.git
+RUN pip install -e /app/universe
 
-WORKDIR /usr/local/universe
-RUN pip install -e /usr/local/universe
-
-WORKDIR /usr/local/
-
-RUN git clone https://github.com/openai/universe-starter-agent.git
-
-WORKDIR /usr/local/universe-starter-agent
 
 # Just in case any python cache files were carried over from the source directory, remove them
 RUN py3clean .
@@ -80,6 +73,8 @@ RUN py3clean .
 
 ```bash
 docker build -t universe .
-docker run --privileged -it -e DOCKER_NET_HOST=172.17.0.1 -p 12345:12345 -v /var/run/docker.sock:/var/run/docker.sock universe bash
-python train.py --num-workers 16 --env-id flashgames.FormulaRacer2012-v0 --log-dir /tmp/formularacer6
+git clone https://github.com/openai/universe-starter-agent.git
+
+docker run --privileged -it -e DOCKER_NET_HOST=172.17.0.1 -p 12345:12345 -v $PWD/logs:/app/logs -v $PWD/universe-starter-agent:/app/universe-starter-agent  -v /var/run/docker.sock:/var/run/docker.sock universe bash
+python train.py --num-workers 32 --env-id flashgames.FormulaRacer2012-v0 --log-dir /app/logs/formularacer
 ```
